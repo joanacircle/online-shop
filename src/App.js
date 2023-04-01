@@ -5,7 +5,9 @@ import { Shop } from "./pages/shop/Shop";
 import { Contact } from "./pages/Contact";
 import { Cart } from "./pages/cart/Cart";
 import { ShopContextProvider } from './context/ShopContext';
-import { CustomTextInput } from './pages/CustomTextInput'
+import { CustomTextInput } from './pages/CustomTextInput';
+import { Login } from './pages/member/Login'
+import { Regitster } from './pages/member/Regitster'
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path='/cart' element={<Cart />} />
             <Route path='/test' element={<CustomTextInput />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/regitster' element={<Regitster />} />
           </Routes>
         </BrowserRouter>
       </ShopContextProvider>
