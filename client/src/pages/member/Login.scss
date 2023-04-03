@@ -49,15 +49,20 @@
     }
   }
 
-  .register-btn {
-    color: #000;
-    margin-top: 20px;
-    font-size: 14px;
-    text-decoration: underline;
-    cursor: pointer;
+  // .register-btn {
+  //   color: #000;
+  //   margin-top: 20px;
+  //   font-size: 14px;
+  //   text-decoration: underline;
+  //   cursor: pointer;
 
-    &:hover {
-      color: #333;
-    }
+  //   &:hover {
+  //     color: #333;
+  //   }
+  // }
+
+  .mesg{
+    margin-top: 30px;
+    color: red;
   }
 }
