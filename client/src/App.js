@@ -4,7 +4,7 @@ import { Navbar } from './components/Navbar';
 import { Shop } from "./pages/shop/Shop";
 import { Contact } from "./pages/Contact";
 import { Cart } from "./pages/cart/Cart";
-import { ShopContextProvider } from './context/ShopContext';
+import { MainContextProvider } from './context/Context';
 import { CustomTextInput } from './pages/CustomTextInput';
 import { Login } from './pages/member/Login'
 import { Regitster } from './pages/member/Regitster'
@@ -12,7 +12,7 @@ import { Regitster } from './pages/member/Regitster'
 function App() {
   return (
     <div className="App">
-      <ShopContextProvider>
+      <MainContextProvider>
         <BrowserRouter>
           <Navbar />
           <Routes>
@@ -24,7 +24,7 @@ function App() {
             <Route path='/regitster' element={<Regitster />} />
           </Routes>
         </BrowserRouter>
-      </ShopContextProvider>
+      </MainContextProvider>
     </div>
   );
 }

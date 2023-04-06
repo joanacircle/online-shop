@@ -4,6 +4,13 @@
   align-items: center;
   justify-content: center;
 
+  .login-title{
+    margin-top: 50px;
+    text-align: center;
+    font-size: 40px;
+  }
+  
+
   form {
     display: flex;
     flex-direction: column;
