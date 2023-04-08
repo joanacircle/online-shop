@@ -1,4 +1,5 @@
 # 🛍️ **Online Shop**
+<img width="1426" alt="截圖 2023-04-08 下午4 27 57" src="https://user-images.githubusercontent.com/117150342/230716021-add2395e-b71c-473a-b303-a23197c65387.png">
 
 This is a simple online shop application built with React. Users can browse through a list of products and add them to their cart. The application keeps track of the total amount of items in the cart and allows users to checkout.
 
