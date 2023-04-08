@@ -1,4 +1,4 @@
-# **Online Shop**
+# 🌟 **Online Shop**
 
 This is a simple online shop application built with React. Users can browse through a list of products and add them to their cart. The application keeps track of the total amount of items in the cart and allows users to checkout.
 
@@ -12,7 +12,7 @@ There is also a login system allows users to easily log in to an existing accoun
 - Checkout
 - Simple and secure login system
 
-## **Technologies Used**
+## 🧰 **Technologies Used**
 
 This application was built using:
 
