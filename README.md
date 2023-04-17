@@ -11,6 +11,7 @@ There is also a login system allows users to easily log in to an existing accoun
 - Keep track of the total amount of items in the cart
 - Checkout
 - Simple and secure login system
+- The shop page utilizes responsive web design (RWD) for optimal viewing on all devices
 
 ## 🧰 **Technologies Used**
 
