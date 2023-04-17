@@ -87,13 +87,6 @@
     }
   }
 
-  $grid-breakpoints: (
-  3: '(min-width: #{380 * 3}px) and (max-width: #{380 * 5 - 1}px)',
-  5: '(min-width: #{380 * 5}px) and (max-width: #{380 * 6 - 1}px)',
-  6: '(min-width: #{380 * 6}px) and (max-width: #{380 * 7 - 1}px)',
-  7: '(min-width: #{380 * 7}px) and (max-width: #{380 * 8 - 1}px)'
-  );
-
   @each $breakpoint, $query in $grid-breakpoints {
     @media screen and #{$query} {
       $width: #{380 * ($breakpoint - 8 % $breakpoint)}px;
