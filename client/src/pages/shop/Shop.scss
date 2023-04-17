@@ -87,6 +87,7 @@
     }
   }
 
+  
   @each $breakpoint, $query in $grid-breakpoints {
     @media screen and #{$query} {
       $width: #{380 * ($breakpoint - 8 % $breakpoint)}px;
