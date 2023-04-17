@@ -1,33 +1,36 @@
-.shop-title {
-  margin-top: 100px;
-  text-align: center;
-  font-size: 40px;
-}
+.shop{
+  .shop-title {
+    margin-top: 100px;
+    text-align: center;
+    h2{
+      font-size: 60px;
+    }
+  }
 
   .products {
     width: 100%;
     height: auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    place-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 
     .product {
-      border-radius: 15px;
+      // outline: 1px solid red;
       width: 300px;
-      height: 350px;
-      margin: 100px;
+      height: 450px;
+      margin: 40px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
 
       &:hover {
-        transition: 0.3s ease-in;
         cursor: pointer;
       }
 
       img {
-        width: 400px;
+        max-width: 100%;
+        height: auto;
       }
 
       .description {
@@ -38,18 +41,70 @@
         background-color: transparent;
         border: 2px solid rgb(19, 19, 19);
         min-width: 100px;
-        padding-left: 10px;
-        padding-right: 10px;
-        padding-top: 5px;
-        padding-bottom: 5px;
+        padding: 5px 10px 5px 10px;
         border-radius: 15px;
-      
+
         &:hover {
           background-color: rgb(19, 19, 19);
           color: white;
           cursor: pointer;
         }
       }
-
     }
   }
+
+  // Media queries
+  @media screen and (max-width: 768px) {
+    .shop-title {
+      margin-top: 60px;
+      h2{
+        font-size: 50px;
+      }
+    }
+    .products {
+      .product {
+        width: 270px;
+        height: 405px;
+        margin: 20px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 576px) {
+    .shop-title {
+      margin-top: 30px;
+      h2{
+        font-size: 30px;
+      }
+    }
+
+    .products {
+      .product {
+        width: 250px;
+        height: 375px;
+        margin: 20px;
+      }
+    }
+  }
+
+  $grid-breakpoints: (
+  3: '(min-width: #{380 * 3}px) and (max-width: #{380 * 5 - 1}px)',
+  5: '(min-width: #{380 * 5}px) and (max-width: #{380 * 6 - 1}px)',
+  6: '(min-width: #{380 * 6}px) and (max-width: #{380 * 7 - 1}px)',
+  7: '(min-width: #{380 * 7}px) and (max-width: #{380 * 8 - 1}px)'
+  );
+
+  @each $breakpoint, $query in $grid-breakpoints {
+    @media screen and #{$query} {
+      $width: #{380 * ($breakpoint - 8 % $breakpoint)}px;
+
+      .products {
+        &::after {
+          content: "";
+          width: $width;
+          height: 450px;
+        }
+      }
+    }
+  }
+}
