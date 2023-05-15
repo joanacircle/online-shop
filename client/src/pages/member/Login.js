@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { LoginContext } from '../../context/Context';
 import { Link } from 'react-router-dom'
 import axios from 'axios'
@@ -8,7 +8,10 @@ export const Login = () => {
   const [name, setName] = useState('')
   // const [email, setEmail] = useState('')
   const [pass, setPass] = useState('')
+  const [loginMessage, setLoginMessage] = useState('')
   const { updateLoginStatus, loginStatus } = useContext(LoginContext)
+
+  axios.defaults.withCredentials = true
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,9 +22,23 @@ export const Login = () => {
     .then(r => {
       if(r.data.length > 0){
         updateLoginStatus()
+        setCookies()
+      }else if(r.data.message){
+        setLoginMessage(r.data.message)
       }
     })
   }
+
+  function setCookies () {
+    axios.get('http://localhost:3001/login')
+    .then(r => {
+      console.log(r)
+      if(r.data.loggedIn){
+        setLoginMessage(`Welcome ${r.data.user[0].username}`)
+      }
+    })
+  }
+
   return (
     <>
     <div className='auth-form-container'>
@@ -35,10 +52,8 @@ export const Login = () => {
         <input value={pass}  type="password" placeholder='******'  name='password' onChange={(e)=>{setPass(e.target.value)}}/>
         <button className="login-btn">Log In</button>
       </form>
-      {loginStatus?
-      <div className='mesg'>Welcome!</div>:
-      <div className='mesg'>Wrong username/password combination!</div>
-      }
+      {loginStatus &&
+      <div className='mesg'>{loginMessage}</div>}
       <p>
         Don't have an account? 
         <Link to='/regitster'> Register here.</Link>
