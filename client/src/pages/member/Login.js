@@ -6,7 +6,6 @@ import './Login.scss'
 
 export const Login = () => {
   const [name, setName] = useState('')
-  // const [email, setEmail] = useState('')
   const [pass, setPass] = useState('')
   const [loginMessage, setLoginMessage] = useState('')
   const { updateLoginStatus, loginStatus } = useContext(LoginContext)
@@ -20,21 +19,26 @@ export const Login = () => {
       password: pass,
     })
     .then(r => {
-      if(r.data.length > 0){
+      if(r.data.token){
         updateLoginStatus()
-        setCookies()
+        document.cookie = `token=${r.data.token}`
+        jwt(r.data.token)
       }else if(r.data.message){
         setLoginMessage(r.data.message)
       }
     })
   }
 
-  function setCookies () {
-    axios.get('http://localhost:3001/login')
+  function jwt (token) {
+    axios.get('http://localhost:3001/login', {
+      headers:{
+        Authorization: token
+      }
+    })
     .then(r => {
       console.log(r)
       if(r.data.loggedIn){
-        setLoginMessage(`Welcome ${r.data.user[0].username}`)
+        setLoginMessage(`Welcome`)
       }
     })
   }
@@ -46,8 +50,6 @@ export const Login = () => {
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Full name</label>
         <input value={name}  name='name' type='text' placeholder='full name' onChange={(e)=>{setName(e.target.value)}}/>
-        {/* <label htmlFor="email">email</label>
-        <input value={email} onChange={(e)=>{setEmail(e.target.value)}} type="email" placeholder='youremail@gmail.com' id='email' name='email'/> */}
         <label htmlFor="password">password</label>
         <input value={pass}  type="password" placeholder='******'  name='password' onChange={(e)=>{setPass(e.target.value)}}/>
         <button className="login-btn">Log In</button>

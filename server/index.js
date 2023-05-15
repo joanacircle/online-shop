@@ -9,6 +9,8 @@ const session = require('express-session')
 const bcrypt = require('bcrypt')
 const saltRounds = 10
 
+const jwt = require('jsonwebtoken')
+
 const app = express()
 
 app.use(express.json())
@@ -38,6 +40,7 @@ const user = process.env.DATABASEUSER_DEV
 const password = process.env.DATABASEPASSWORD_DEV
 const database = process.env.DATABASE_DEV
 const port = process.env.DATABASE_PORT_DEV
+const jwtKey = process.env.JWT_SECRET
 
 const db = mysql.createConnection({
   user,
@@ -46,6 +49,23 @@ const db = mysql.createConnection({
   database,
   port,
 })
+
+// jwt middleware
+const authenticate = (req, res, next) => {
+  const token = req.headers.authorization
+  if(!token){
+    return res.send('Unauthorized: No token provided')
+  }
+
+  try{
+    const decode = jwt.verify(token, jwtKey)
+    req.userId = decode.userId
+    next()
+  } catch (err){
+    console.log(err)
+    res.send('Unauthorized: Invalid token')
+  }
+}
 
 app.post('/register', (req, res) => {
   const {username, password} = req.body
@@ -64,14 +84,16 @@ app.post('/register', (req, res) => {
 })
 })
 
-app.get('/login', (req, res) => {
-  if(req.session.user){
-    res.send({loggedIn: true, user: req.session.user})
-  }else{
-    res.send({loggedIn: false})
+app.get('/login', authenticate, (req, res) => {
+  try{
+    res.send({loggedIn: true})
+  } catch (err) {
+    console.log(err)
+    res.send('Error fetching user')
   }
 })
 
+// 確認用戶是否存在
 app.post('/login', (req, res) => {
   const {username, password} = req.body
 
@@ -85,9 +107,10 @@ app.post('/login', (req, res) => {
     if(result.length > 0){
       bcrypt.compare(password, result[0].password, (error, response) =>{
         if(response){
-          req.session.user = result
-          // console.log(req.session.user)
-          res.send(result)
+          const token = jwt.sign({userId: result[0].id}, jwtKey)
+          console.log(token)
+          res.json({token})
+
         }else{
           res.send({message: 'Wrong username/password combination!'})
         }
